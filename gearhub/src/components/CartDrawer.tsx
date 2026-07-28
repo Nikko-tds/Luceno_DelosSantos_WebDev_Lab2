@@ -1,6 +1,5 @@
 'use client';
 
-import React from 'react';
 import { useShop } from '@/context/ShopContext';
 import { X, Trash2, Plus, Minus, ShoppingBag, ArrowRight } from 'lucide-react';
 import Image from 'next/image';
@@ -9,12 +8,10 @@ export default function CartDrawer() {
   const { state, dispatch } = useShop();
   const { cart, isCartOpen, cartWarning } = state;
 
-  // If cart drawer is closed, don't render anything
   if (!isCartOpen) return null;
 
-  // Calculate Subtotal and Grand Total
   const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  const shipping = subtotal > 0 ? 10.00 : 0; // Flat shipping rate
+  const shipping = subtotal > 0 ? 10.00 : 0;
   const grandTotal = subtotal + shipping;
 
   const handleCheckout = () => {

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useShop } from '@/context/ShopContext';
 import ProductCard from './ProductCard';
 import productsData from '@/data/products.json';
@@ -11,24 +11,19 @@ export default function ProductGrid() {
   const { state, dispatch } = useShop();
   const { products, filters } = state;
 
-  // Load mock data into global state on initial mount
   useEffect(() => {
     dispatch({ type: 'SET_PRODUCTS', payload: productsData as Product[] });
   }, [dispatch]);
 
-  // Filter and sort products based on active filters
   const filteredProducts = products
     .filter((product) => {
-      // Search query filter
       const matchesSearch = product.name
         .toLowerCase()
         .includes(filters.searchQuery.toLowerCase());
       
-      // Category filter
       const matchesCategory =
         filters.category === 'All' || product.category === filters.category;
       
-      // Price filter
       const matchesPrice = product.price <= filters.maxPrice;
 
       return matchesSearch && matchesCategory && matchesPrice;
@@ -37,7 +32,7 @@ export default function ProductGrid() {
       if (filters.sortBy === 'price-asc') return a.price - b.price;
       if (filters.sortBy === 'price-desc') return b.price - a.price;
       if (filters.sortBy === 'title') return a.name.localeCompare(b.name);
-      return 0; // 'default'
+      return 0;
     });
 
   return (

@@ -1,6 +1,5 @@
 'use client';
 
-import React from 'react';
 import { Product } from '@/types';
 import { useShop } from '@/context/ShopContext';
 import { Plus } from 'lucide-react';

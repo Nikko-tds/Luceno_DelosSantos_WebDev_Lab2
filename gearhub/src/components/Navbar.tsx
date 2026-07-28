@@ -1,13 +1,11 @@
 'use client';
 
-import React from 'react';
 import { useShop } from '@/context/ShopContext';
 import { ShoppingBag, Search, ShieldCheck } from 'lucide-react';
 
 export default function Navbar() {
   const { state, dispatch } = useShop();
 
-  // Calculate total number of items in the cart for the badge counter
   const totalItems = state.cart.reduce((sum, item) => sum + item.quantity, 0);
 
   return (

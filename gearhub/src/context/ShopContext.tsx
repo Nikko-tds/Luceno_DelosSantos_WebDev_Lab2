@@ -6,7 +6,6 @@ import productsData from '@/data/products.json';
 
 const highestPrice = Math.max(...productsData.map((product) => product.price));
 
-// Define initial state values
 const initialFilters: FilterState = {
   searchQuery: '',
   category: 'All',
@@ -22,7 +21,6 @@ const initialState: State = {
   cartWarning: null,
 };
 
-// Reducer function handling state transitions
 function shopReducer(state: State, action: Action): State {
   switch (action.type) {
     case 'SET_PRODUCTS': {
@@ -137,7 +135,6 @@ function shopReducer(state: State, action: Action): State {
   }
 }
 
-// Create Context
 interface ShopContextType {
   state: State;
   dispatch: React.Dispatch<Action>;
@@ -145,7 +142,6 @@ interface ShopContextType {
 
 const ShopContext = createContext<ShopContextType | undefined>(undefined);
 
-// Context Provider Component
 export function ShopProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(shopReducer, initialState);
 
@@ -156,7 +152,6 @@ export function ShopProvider({ children }: { children: ReactNode }) {
   );
 }
 
-// Custom hook for easier consumption in components
 export function useShop() {
   const context = useContext(ShopContext);
   if (!context) {

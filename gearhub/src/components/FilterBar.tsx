@@ -1,6 +1,5 @@
 'use client';
 
-import React from 'react';
 import { useShop } from '@/context/ShopContext';
 import { SlidersHorizontal, ArrowUpDown } from 'lucide-react';
 import { SortOption } from '@/types';
