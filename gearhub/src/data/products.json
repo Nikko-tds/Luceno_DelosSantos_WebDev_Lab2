@@ -1,0 +1,178 @@
+[
+  {
+    "id": "1",
+    "name": "Wireless Mechanical Keyboard",
+    "category": "Keyboards",
+    "price": 89.99,
+    "image": "https://images.unsplash.com/photo-1587829741301-dc798b83add3",
+    "inStock": 5
+  },
+  {
+    "id": "2",
+    "name": "Ergonomic Vertical Mouse",
+    "category": "Mouse",
+    "price": 45.50,
+    "image": "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7",
+    "inStock": 7
+  },
+  {
+    "id": "3",
+    "name": "Noise-Canceling Headphones",
+    "category": "Audio",
+    "price": 149.99,
+    "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e",
+    "inStock": 8
+  },
+  {
+    "id": "4",
+    "name": "Ultra-Wide Gaming Monitor",
+    "category": "Monitors",
+    "price": 399.99,
+    "image": "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf",
+    "inStock": 9
+  },
+  {
+    "id": "5",
+    "name": "RGB Desk Mat & Pad",
+    "category": "Accessories",
+    "price": 29.99,
+    "image": "https://images.unsplash.com/photo-1618384887929-16ec33fab9ef",
+    "inStock": 6
+  },
+  {
+    "id": "6",
+    "name": "USB-C Multi-Port Hub",
+    "category": "Accessories",
+    "price": 34.99,
+    "image": "https://images.unsplash.com/photo-1541807084-5c52b6b3adef",
+    "inStock": 4
+  },
+  {
+    "id": "7",
+    "name": "1080p Streaming Webcam",
+    "category": "Video",
+    "price": 59.99,
+    "image": "https://images.unsplash.com/photo-1587826589255-8db6522a15c3",
+    "inStock": 12
+  },
+  {
+    "id": "8",
+    "name": "USB Condenser Microphone",
+    "category": "Audio",
+    "price": 79.99,
+    "image": "https://images.unsplash.com/photo-1590602847861-f357a9332bbc",
+    "inStock": 15
+  },
+  {
+    "id": "9",
+    "name": "Adjustable Aluminum Laptop Stand",
+    "category": "Accessories",
+    "price": 24.99,
+    "image": "https://images.unsplash.com/photo-1625842268584-8f3296236761",
+    "inStock": 20
+  },
+  {
+    "id": "10",
+    "name": "2TB Portable External SSD",
+    "category": "Storage",
+    "price": 129.99,
+    "image": "https://images.unsplash.com/photo-1597872200969-2b65d56bd16b",
+    "inStock": 3
+  },
+  {
+    "id": "11",
+    "name": "LED Monitor Light Bar",
+    "category": "Lighting",
+    "price": 39.99,
+    "image": "https://images.unsplash.com/photo-1517502884422-41eaead166d4",
+    "inStock": 11
+  },
+  {
+    "id": "12",
+    "name": "Ergonomic Mesh Office Chair",
+    "category": "Furniture",
+    "price": 199.99,
+    "image": "https://images.unsplash.com/photo-1505843490538-5133c6c7d0e1",
+    "inStock": 2
+  },
+  {
+    "id": "13",
+    "name": "Wireless Charging Pad",
+    "category": "Accessories",
+    "price": 19.99,
+    "image": "https://images.unsplash.com/photo-1622445275463-afa2ab738c34",
+    "inStock": 25
+  },
+  {
+    "id": "14",
+    "name": "Extended Braided USB-C Cable",
+    "category": "Accessories",
+    "price": 14.99,
+    "image": "https://images.unsplash.com/photo-1549480017-d76466a4b7e8",
+    "inStock": 30
+  },
+  {
+    "id": "15",
+    "name": "Bluetooth Tracking Tag",
+    "category": "Accessories",
+    "price": 29.99,
+    "image": "https://images.unsplash.com/photo-1592890278964-b0a701833a65",
+    "inStock": 50
+  },
+  {
+    "id": "16",
+    "name": "Dual Monitor Arm Mount",
+    "category": "Accessories",
+    "price": 49.99,
+    "image": "https://images.unsplash.com/photo-1593640495253-23196b27a87f",
+    "inStock": 8
+  },
+  {
+    "id": "17",
+    "name": "65% Compact Mechanical Keyboard",
+    "category": "Keyboards",
+    "price": 69.99,
+    "image": "https://images.unsplash.com/photo-1595225476474-87563907a212",
+    "inStock": 10
+  },
+  {
+    "id": "18",
+    "name": "Desktop Ring Light",
+    "category": "Lighting",
+    "price": 25.99,
+    "image": "https://images.unsplash.com/photo-1603503350170-13f56972ef75",
+    "inStock": 18
+  },
+  {
+    "id": "19",
+    "name": "4K Video Capture Card",
+    "category": "Video",
+    "price": 149.99,
+    "image": "https://images.unsplash.com/photo-1550009158-9ebf6d1736de",
+    "inStock": 5
+  },
+  {
+    "id": "20",
+    "name": "Motorized Standing Desk Frame",
+    "category": "Furniture",
+    "price": 249.99,
+    "image": "https://images.unsplash.com/photo-1595515106969-1ce29566ff1c",
+    "inStock": 4
+  },
+  {
+    "id": "21",
+    "name": "Under-Desk Cable Management Tray",
+    "category": "Accessories",
+    "price": 19.99,
+    "image": "https://images.unsplash.com/photo-1616423640778-28d1b53229bd",
+    "inStock": 22
+  },
+  {
+    "id": "22",
+    "name": "High-Fidelity Studio Monitors",
+    "category": "Audio",
+    "price": 199.99,
+    "image": "https://images.unsplash.com/photo-1545127398-14699f92334b",
+    "inStock": 6
+  }
+]

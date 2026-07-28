@@ -5,7 +5,7 @@ GearHub is a single-page React app for browsing tech accessories, filtering prod
 ---
 
 ## Team Members
-- Nikko 
+- Nikko Teopengco Delos Santos
 - Lemuel Luceño
 
 ---
@@ -31,14 +31,19 @@ GearHub is a single-page React app for browsing tech accessories, filtering prod
 Make sure you have [Node.js](https://nodejs.org/) installed on your machine. 
 
 1. **Clone or open the project folder** in your terminal.
-2. Install the required dependencies:
+2. Make sure you are in the gearhub directory:
+   ```bash
+   cd gearhub
+3. Install the required dependencies:
    ```bash
    npm install
 
 ---
 
 ## How to Run the Application
-1. Start the dev server locally by running **npm run dev** in the terminal.
+1. Start the dev server locally:
+   ```bash
+   npm run dev
 2. Open your browser and navigate to http://localhost:3000 to view the application.
 
 ---
