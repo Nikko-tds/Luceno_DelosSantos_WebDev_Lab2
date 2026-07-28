@@ -3,7 +3,7 @@
 import React from 'react';
 import { Product } from '@/types';
 import { useShop } from '@/context/ShopContext';
-import { Plus, Check } from 'lucide-react';
+import { Plus } from 'lucide-react';
 import Image from 'next/image';
 
 interface ProductCardProps {
@@ -32,7 +32,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         </span>
 
         {/* Stock Status Indicator */}
-        {!product.inStock && (
+        {product.inStock <= 0 && (
           <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-[2px] flex items-center justify-center">
             <span className="bg-white text-slate-900 text-xs font-bold px-3 py-1 rounded-full shadow-md uppercase tracking-wider">
               Out of Stock
@@ -55,9 +55,9 @@ export default function ProductCard({ product }: ProductCardProps) {
         {/* Action Button */}
         <button
           onClick={() => dispatch({ type: 'ADD_TO_CART', payload: product })}
-          disabled={!product.inStock}
+          disabled={product.inStock <= 0}
           className={`w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-sm font-medium transition-all ${
-            product.inStock
+            product.inStock > 0
               ? 'bg-slate-900 hover:bg-blue-600 text-white shadow-sm'
               : 'bg-slate-100 text-slate-400 cursor-not-allowed'
           }`}

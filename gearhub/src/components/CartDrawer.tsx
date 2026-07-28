@@ -7,7 +7,7 @@ import Image from 'next/image';
 
 export default function CartDrawer() {
   const { state, dispatch } = useShop();
-  const { cart, isCartOpen } = state;
+  const { cart, isCartOpen, cartWarning } = state;
 
   // If cart drawer is closed, don't render anything
   if (!isCartOpen) return null;
@@ -50,6 +50,12 @@ export default function CartDrawer() {
               <X className="w-5 h-5" />
             </button>
           </div>
+
+          {cartWarning && (
+            <div className="border-b border-amber-200 bg-amber-50 px-6 py-3">
+              <p className="text-sm font-medium text-amber-700">{cartWarning}</p>
+            </div>
+          )}
 
           {/* Cart Item List */}
           <div className="flex-1 overflow-y-auto p-6 space-y-4">
@@ -102,7 +108,8 @@ export default function CartDrawer() {
                               payload: { id: item.id, quantity: item.quantity + 1 },
                             })
                           }
-                          className="p-1 hover:bg-slate-100 text-slate-600 transition-colors"
+                          disabled={item.quantity >= item.inStock}
+                          className="p-1 hover:bg-slate-100 text-slate-600 transition-colors disabled:cursor-not-allowed disabled:opacity-50"
                         >
                           <Plus className="w-3.5 h-3.5" />
                         </button>
@@ -134,7 +141,7 @@ export default function CartDrawer() {
                 </div>
                 <h3 className="font-semibold text-slate-900 text-base">Your cart is empty</h3>
                 <p className="text-sm text-slate-500 max-w-xs">
-                  Looks like you haven't added any gear to your cart yet. Explore our catalog and grab what you need!
+                  Looks like you haven&apos;t added any gear to your cart yet. Explore our catalog and grab what you need!
                 </p>
               </div>
             )}

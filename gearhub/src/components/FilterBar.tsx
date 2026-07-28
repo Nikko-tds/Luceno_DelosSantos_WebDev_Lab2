@@ -10,6 +10,10 @@ const CATEGORIES = ['All', 'Keyboards', 'Mice', 'Audio', 'Monitors', 'Accessorie
 export default function FilterBar() {
   const { state, dispatch } = useShop();
   const { category, maxPrice, sortBy, searchQuery } = state.filters;
+  const highestProductPrice = state.products.length > 0
+    ? Math.max(...state.products.map((product) => product.price))
+    : 500;
+  const sliderMaxPrice = Math.max(highestProductPrice, maxPrice, 20);
 
   return (
     <div className="bg-white border border-slate-200 rounded-2xl p-4 sm:p-6 shadow-sm mb-8 space-y-4">
@@ -87,7 +91,7 @@ export default function FilterBar() {
           <input
             type="range"
             min="20"
-            max="500"
+            max={sliderMaxPrice}
             step="10"
             value={maxPrice}
             onChange={(e) =>

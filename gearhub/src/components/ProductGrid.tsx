@@ -63,7 +63,7 @@ export default function ProductGrid() {
           </div>
           <h3 className="font-semibold text-slate-900 text-base">No gear found</h3>
           <p className="text-sm text-slate-500 max-w-sm">
-            Try adjusting your search query, price range, or category filters to find what you're looking for.
+            Try adjusting your search query, price range, or category filters to find what you&apos;re looking for.
           </p>
         </div>
       )}

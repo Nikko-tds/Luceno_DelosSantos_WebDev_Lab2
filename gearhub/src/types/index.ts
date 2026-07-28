@@ -4,7 +4,7 @@ export interface Product {
   category: string;
   price: number;
   image: string;
-  inStock: boolean;
+  inStock: number;
 }
 
 export interface CartItem extends Product {
@@ -25,6 +25,7 @@ export interface State {
   cart: CartItem[];
   filters: FilterState;
   isCartOpen: boolean;
+  cartWarning: string | null;
 }
 
 export type Action =
