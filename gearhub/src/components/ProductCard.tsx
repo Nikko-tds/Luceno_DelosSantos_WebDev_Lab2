@@ -42,7 +42,7 @@ export default function ProductCard({ product }: ProductCardProps) {
       </div>
 
       {/* Product Content Details */}
-      <div className="p-5 flex flex-col flex-grow justify-between space-y-4">
+      <div className="p-5 flex flex-col grow justify-between space-y-4">
         <div>
           <h3 className="font-semibold text-slate-900 text-base line-clamp-1 group-hover:text-blue-600 transition-colors">
             {product.name}
