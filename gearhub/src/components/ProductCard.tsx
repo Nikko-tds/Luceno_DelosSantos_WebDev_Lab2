@@ -11,7 +11,10 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
-  const { dispatch } = useShop();
+  const { state, dispatch } = useShop();
+  const cartItem = state.cart.find((item) => item.id === product.id);
+  const availableStock = product.inStock - (cartItem?.quantity ?? 0);
+  const isOutOfStock = availableStock <= 0;
 
   return (
     <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between group">
@@ -32,9 +35,9 @@ export default function ProductCard({ product }: ProductCardProps) {
         </span>
 
         {/* Stock Status Indicator */}
-        {product.inStock <= 0 && (
+        {isOutOfStock && (
           <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-[2px] flex items-center justify-center">
-            <span className="bg-white text-slate-900 text-xs font-bold px-3 py-1 rounded-full shadow-md uppercase tracking-wider">
+            <span className="bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md uppercase tracking-wider">
               Out of Stock
             </span>
           </div>
@@ -55,9 +58,9 @@ export default function ProductCard({ product }: ProductCardProps) {
         {/* Action Button */}
         <button
           onClick={() => dispatch({ type: 'ADD_TO_CART', payload: product })}
-          disabled={product.inStock <= 0}
+          disabled={isOutOfStock}
           className={`w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-sm font-medium transition-all ${
-            product.inStock > 0
+            !isOutOfStock
               ? 'bg-slate-900 hover:bg-blue-600 text-white shadow-sm'
               : 'bg-slate-100 text-slate-400 cursor-not-allowed'
           }`}
