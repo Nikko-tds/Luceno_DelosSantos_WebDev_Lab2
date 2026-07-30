@@ -8,7 +8,7 @@ const highestPrice = Math.max(...productsData.map((product) => product.price));
 
 const initialFilters: FilterState = {
   searchQuery: '',
-  category: 'All',
+  category: [],
   maxPrice: highestPrice,
   sortBy: 'default',
 };

@@ -1,10 +1,14 @@
 'use client';
 
 import { useShop } from '@/context/ShopContext';
+import productsData from '@/data/products.json';
 import { SlidersHorizontal, ArrowUpDown } from 'lucide-react';
 import { SortOption } from '@/types';
+import { Button, Dropdown, Pill, TextField } from './ui';
 
-const CATEGORIES = ['All', 'Keyboards', 'Mice', 'Audio', 'Monitors', 'Accessories'];
+const CATEGORY_OPTIONS = Array.from(
+  new Set(productsData.map((product) => product.category).filter(Boolean))
+).sort((a, b) => a.localeCompare(b));
 
 export default function FilterBar() {
   const { state, dispatch } = useShop();
@@ -13,6 +17,26 @@ export default function FilterBar() {
     ? Math.max(...state.products.map((product) => product.price))
     : 500;
   const sliderMaxPrice = Math.max(highestProductPrice, maxPrice, 20);
+  const selectedCategories = category ?? [];
+  const availableCategories = CATEGORY_OPTIONS.filter(
+    (cat) => !selectedCategories.includes(cat)
+  );
+
+  const addCategory = (value: string) => {
+    if (!value || selectedCategories.includes(value)) return;
+
+    dispatch({
+      type: 'SET_FILTER',
+      payload: { category: [...selectedCategories, value] },
+    });
+  };
+
+  const removeCategory = (value: string) => {
+    dispatch({
+      type: 'SET_FILTER',
+      payload: { category: selectedCategories.filter((cat) => cat !== value) },
+    });
+  };
 
   return (
     <div className="bg-white border border-slate-200 rounded-2xl p-4 sm:p-6 shadow-sm mb-8 space-y-4">
@@ -20,31 +44,41 @@ export default function FilterBar() {
       {/* Top row: Categories & Sort */}
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
         
-        {/* Category Pills */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-2 lg:pb-0 scrollbar-none">
-          <span className="text-xs font-semibold uppercase tracking-wider text-slate-400 flex items-center gap-1 mr-2 shrink-0">
-            <SlidersHorizontal className="w-3.5 h-3.5" /> Category:
-          </span>
-          {CATEGORIES.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => dispatch({ type: 'SET_FILTER', payload: { category: cat } })}
-              className={`px-3.5 py-1.5 rounded-full text-sm font-medium transition-all shrink-0 ${
-                category === cat
-                  ? 'bg-slate-900 text-white shadow-sm'
-                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
+        {/* Category Dropdown + Selected Pills */}
+        <div className="flex flex-col gap-3 lg:flex-1">
+          <div className="flex items-center gap-2 overflow-x-auto pb-2 lg:pb-0 scrollbar-none">
+            <span className="text-xs font-semibold uppercase tracking-wider text-slate-400 flex items-center gap-1 mr-2 shrink-0">
+              <SlidersHorizontal className="w-3.5 h-3.5" /> Category:
+            </span>
+            <Dropdown
+              value=""
+              onChange={(e) => addCategory(e.target.value)}
+              options={[
+                { label: 'Select a category', value: '' },
+                ...availableCategories.map((cat) => ({ label: cat, value: cat })),
+              ]}
+              className="min-w-56"
+            />
+          </div>
+
+          <div className="flex flex-wrap gap-2">
+            {selectedCategories.length === 0 ? (
+              <span className="text-sm text-slate-500">Showing all categories</span>
+            ) : (
+              selectedCategories.map((cat) => (
+                <Pill key={cat} onRemove={() => removeCategory(cat)}>
+                  {cat}
+                </Pill>
+              ))
+            )}
+          </div>
         </div>
 
         {/* Sort Options */}
         <div className="flex items-center gap-2 shrink-0 self-start lg:self-auto">
           <ArrowUpDown className="w-4 h-4 text-slate-400" />
           <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">Sort By:</span>
-          <select
+          <Dropdown
             value={sortBy}
             onChange={(e) =>
               dispatch({
@@ -52,13 +86,13 @@ export default function FilterBar() {
                 payload: { sortBy: e.target.value as SortOption },
               })
             }
-            className="bg-slate-100 border border-slate-200 text-slate-700 text-sm rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-slate-900 transition-all"
-          >
-            <option value="default">Featured</option>
-            <option value="price-asc">Price: Low to High</option>
-            <option value="price-desc">Price: High to Low</option>
-            <option value="title">Alphabetical (A-Z)</option>
-          </select>
+            options={[
+              { label: 'Featured', value: 'default' },
+              { label: 'Price: Low to High', value: 'price-asc' },
+              { label: 'Price: High to Low', value: 'price-desc' },
+              { label: 'Alphabetical (A-Z)', value: 'title' },
+            ]}
+          />
         </div>
 
       </div>
@@ -68,7 +102,7 @@ export default function FilterBar() {
         
         {/* Mobile Search Input */}
         <div className="w-full sm:w-auto md:hidden">
-          <input
+          <TextField
             type="text"
             placeholder="Search gear..."
             value={searchQuery}
@@ -78,7 +112,7 @@ export default function FilterBar() {
                 payload: { searchQuery: e.target.value },
               })
             }
-            className="w-full px-4 py-2 text-sm bg-slate-100 border border-slate-200 rounded-lg focus:outline-none focus:bg-white"
+            className="w-full"
           />
         </div>
 

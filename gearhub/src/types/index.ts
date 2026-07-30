@@ -15,7 +15,7 @@ export type SortOption = 'default' | 'price-asc' | 'price-desc' | 'title';
 
 export interface FilterState {
   searchQuery: string;
-  category: string;
+  category: string[];
   maxPrice: number;
   sortBy: SortOption;
 }

@@ -8,7 +8,8 @@ import productsData from '@/data/products.json';
 import { Product } from '@/types';
 import { PackageX } from 'lucide-react';
 
-const ITEMS_PER_PAGE = 6;
+const ITEMS_PER_PAGE = 10;
+const ITEMS_PER_ROW = 5;
 
 export default function ProductGrid() {
   const { state, dispatch } = useShop();
@@ -26,8 +27,10 @@ export default function ProductGrid() {
           .toLowerCase()
           .includes(filters.searchQuery.toLowerCase());
 
+        const selectedCategories = filters.category ?? [];
         const matchesCategory =
-          filters.category === 'All' || product.category === filters.category;
+          selectedCategories.length === 0 ||
+          selectedCategories.includes(product.category);
 
         const matchesPrice = product.price <= filters.maxPrice;
 
@@ -65,7 +68,7 @@ export default function ProductGrid() {
 
       {filteredProducts.length > 0 ? (
         <>
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-5">
             {visibleProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
