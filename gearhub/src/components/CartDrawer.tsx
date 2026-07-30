@@ -21,17 +21,12 @@ export default function CartDrawer() {
 
   return (
     <div className="fixed inset-0 z-50 overflow-hidden">
-      {/* Background Overlay */}
       <div 
         className="absolute inset-0 bg-slate-900/50 backdrop-blur-sm transition-opacity"
         onClick={() => dispatch({ type: 'TOGGLE_CART' })}
       />
-
-      {/* Slide-out Drawer Panel */}
       <div className="absolute inset-y-0 right-0 max-w-full flex pl-10">
         <div className="w-screen max-w-md bg-white shadow-2xl flex flex-col">
-          
-          {/* Drawer Header */}
           <div className="px-6 py-4 border-b border-slate-200 flex items-center justify-between bg-slate-50">
             <div className="flex items-center gap-2">
               <ShoppingBag className="w-5 h-5 text-slate-900" />
@@ -54,7 +49,6 @@ export default function CartDrawer() {
             </div>
           )}
 
-          {/* Cart Item List */}
           <div className="flex-1 overflow-y-auto p-6 space-y-4">
             {cart.length > 0 ? (
               cart.map((item) => (
@@ -62,7 +56,6 @@ export default function CartDrawer() {
                   key={item.id} 
                   className="flex items-center gap-4 p-3 bg-slate-50 border border-slate-200 rounded-2xl relative group"
                 >
-                  {/* Item Thumbnail */}
                   <div className="relative w-16 h-16 bg-white rounded-xl overflow-hidden shrink-0 border border-slate-100">
                     <Image
                       src={item.image}
@@ -71,8 +64,6 @@ export default function CartDrawer() {
                       className="object-cover"
                     />
                   </div>
-
-                  {/* Item Details */}
                   <div className="flex-1 min-w-0">
                     <h4 className="font-semibold text-sm text-slate-900 truncate">
                       {item.name}
@@ -80,8 +71,6 @@ export default function CartDrawer() {
                     <p className="text-xs text-slate-500 mt-0.5">
                       ${item.price.toFixed(2)} each
                     </p>
-
-                    {/* Quantity Modifier Control */}
                     <div className="flex items-center gap-3 mt-2">
                       <div className="flex items-center border border-slate-200 bg-white rounded-lg overflow-hidden">
                         <button
@@ -111,8 +100,6 @@ export default function CartDrawer() {
                           <Plus className="w-3.5 h-3.5" />
                         </button>
                       </div>
-
-                      {/* Remove single item button */}
                       <button
                         onClick={() =>
                           dispatch({ type: 'REMOVE_FROM_CART', payload: item.id })
@@ -124,8 +111,6 @@ export default function CartDrawer() {
                       </button>
                     </div>
                   </div>
-
-                  {/* Item Total Price */}
                   <div className="text-right font-bold text-sm text-slate-900">
                     ${(item.price * item.quantity).toFixed(2)}
                   </div>
@@ -143,8 +128,6 @@ export default function CartDrawer() {
               </div>
             )}
           </div>
-
-          {/* Drawer Footer / Totals & Checkout */}
           {cart.length > 0 && (
             <div className="border-t border-slate-200 p-6 bg-slate-50 space-y-3">
               <div className="space-y-1.5 text-sm">
@@ -161,7 +144,6 @@ export default function CartDrawer() {
                   <span className="text-blue-600">${grandTotal.toFixed(2)}</span>
                 </div>
               </div>
-
               <button
                 onClick={handleCheckout}
                 className="w-full bg-slate-900 hover:bg-blue-600 text-white font-medium py-3 px-4 rounded-xl shadow-sm transition-all flex items-center justify-center gap-2 mt-2"
@@ -169,7 +151,6 @@ export default function CartDrawer() {
                 <span>Proceed to Checkout</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
-              
               <button
                 onClick={() => dispatch({ type: 'CLEAR_CART' })}
                 className="w-full text-center text-xs text-slate-500 hover:text-red-500 transition-colors pt-1"

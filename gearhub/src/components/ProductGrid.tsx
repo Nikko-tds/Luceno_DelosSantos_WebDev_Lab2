@@ -1,63 +1,89 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useShop } from '@/context/ShopContext';
 import ProductCard from './ProductCard';
+import ProductCarouselControls from './ProductCarouselControls';
 import productsData from '@/data/products.json';
 import { Product } from '@/types';
 import { PackageX } from 'lucide-react';
 
+const ITEMS_PER_PAGE = 6;
+
 export default function ProductGrid() {
   const { state, dispatch } = useShop();
   const { products, filters } = state;
+  const [currentPage, setCurrentPage] = useState(0);
 
   useEffect(() => {
     dispatch({ type: 'SET_PRODUCTS', payload: productsData as Product[] });
   }, [dispatch]);
 
-  const filteredProducts = products
-    .filter((product) => {
-      const matchesSearch = product.name
-        .toLowerCase()
-        .includes(filters.searchQuery.toLowerCase());
-      
-      const matchesCategory =
-        filters.category === 'All' || product.category === filters.category;
-      
-      const matchesPrice = product.price <= filters.maxPrice;
+  const filteredProducts = useMemo(() => {
+    return products
+      .filter((product) => {
+        const matchesSearch = product.name
+          .toLowerCase()
+          .includes(filters.searchQuery.toLowerCase());
 
-      return matchesSearch && matchesCategory && matchesPrice;
-    })
-    .sort((a, b) => {
-      if (filters.sortBy === 'price-asc') return a.price - b.price;
-      if (filters.sortBy === 'price-desc') return b.price - a.price;
-      if (filters.sortBy === 'title') return a.name.localeCompare(b.name);
-      return 0;
-    });
+        const matchesCategory =
+          filters.category === 'All' || product.category === filters.category;
+
+        const matchesPrice = product.price <= filters.maxPrice;
+
+        return matchesSearch && matchesCategory && matchesPrice;
+      })
+      .sort((a, b) => {
+        if (filters.sortBy === 'price-asc') return a.price - b.price;
+        if (filters.sortBy === 'price-desc') return b.price - a.price;
+        if (filters.sortBy === 'title') return a.name.localeCompare(b.name);
+        return 0;
+      });
+  }, [products, filters]);
+
+  const totalPages = Math.max(1, Math.ceil(filteredProducts.length / ITEMS_PER_PAGE));
+  const safePage = Math.min(currentPage, totalPages - 1);
+  const visibleProducts = filteredProducts.slice(
+    safePage * ITEMS_PER_PAGE,
+    safePage * ITEMS_PER_PAGE + ITEMS_PER_PAGE
+  );
+
+  useEffect(() => {
+    setCurrentPage(0);
+  }, [filters.searchQuery, filters.category, filters.maxPrice, filters.sortBy]);
 
   return (
     <div>
-      {/* Results Count indicator */}
-      <div className="flex items-center justify-between mb-6">
+      <div className="mb-6 flex items-center justify-between">
         <h2 className="text-lg font-bold text-slate-900">
-          Featured Gear <span className="text-sm font-normal text-slate-500 ml-2">({filteredProducts.length} items)</span>
+          Featured Gear{' '}
+          <span className="ml-2 text-sm font-normal text-slate-500">
+            ({filteredProducts.length} items)
+          </span>
         </h2>
       </div>
 
-      {/* Grid or Empty State */}
       {filteredProducts.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredProducts.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
-      ) : (
-        <div className="bg-white border border-slate-200 rounded-2xl p-12 text-center flex flex-col items-center justify-center space-y-3">
-          <div className="bg-slate-100 p-4 rounded-full text-slate-400">
-            <PackageX className="w-8 h-8" />
+        <>
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {visibleProducts.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
           </div>
-          <h3 className="font-semibold text-slate-900 text-base">No gear found</h3>
-          <p className="text-sm text-slate-500 max-w-sm">
+
+          <ProductCarouselControls
+            currentPage={safePage}
+            totalPages={totalPages}
+            onPageChange={setCurrentPage}
+          />
+        </>
+      ) : (
+        <div className="flex flex-col items-center justify-center space-y-3 rounded-2xl border border-slate-200 bg-white p-12 text-center">
+          <div className="rounded-full bg-slate-100 p-4 text-slate-400">
+            <PackageX className="h-8 w-8" />
+          </div>
+          <h3 className="text-base font-semibold text-slate-900">No gear found</h3>
+          <p className="max-w-sm text-sm text-slate-500">
             Try adjusting your search query, price range, or category filters to find what you&apos;re looking for.
           </p>
         </div>
