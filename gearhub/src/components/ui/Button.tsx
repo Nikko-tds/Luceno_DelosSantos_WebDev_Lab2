@@ -15,9 +15,9 @@ export default function Button({
 }: ButtonProps) {
   const baseStyles = 'inline-flex items-center justify-center rounded-lg font-medium transition-all';
   const variants = {
-    default: 'bg-slate-900 text-white hover:bg-slate-700',
-    secondary: 'bg-slate-100 text-slate-700 hover:bg-slate-200',
-    ghost: 'bg-transparent text-slate-700 hover:bg-slate-100',
+    default: 'bg-black text-white hover:bg-green',
+    secondary: 'bg-offwhite text-black hover:bg-white hover:border hover:border-green hover:text-green',
+    ghost: 'bg-offwhite text-black ',
   };
 
   return (

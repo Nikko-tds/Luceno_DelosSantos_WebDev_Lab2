@@ -14,10 +14,10 @@ export default function Dropdown({
   ...props
 }: DropdownProps) {
   return (
-    <div className="flex flex-col gap-1 mt-1">
-      {label ? <label className="text-xs font-semibold uppercase tracking-wider text-slate-400">{label}</label> : null}
+    <div className="flex flex-col gap-1 mt-1 mr-1 lg:mr-0">
+      {label ? <label className="text-xs font-semibold uppercase tracking-wider text-black">{label}</label> : null}
       <select
-        className={`rounded-lg border border-slate-200 bg-slate-100 px-3 py-2 text-sm text-slate-700 transition-all focus:outline-none focus:ring-2 focus:ring-slate-900 ${className}`.trim()}
+        className={`rounded-lg border border-green bg-offgrey px-3 py-2 text-sm text-black transition-all focus:outline-none focus:ring-2 focus:ring-green ${className}`.trim()}
         {...props}
       >
         {options.map((option) => (

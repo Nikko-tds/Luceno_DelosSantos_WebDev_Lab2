@@ -1,6 +1,7 @@
 'use client';
 
 import { ReactNode } from 'react';
+import { X } from 'lucide-react';
 
 interface PillProps {
   children: ReactNode;
@@ -11,21 +12,20 @@ interface PillProps {
 export default function Pill({ children, onRemove, variant = 'default' }: PillProps) {
   const styles =
     variant === 'muted'
-      ? 'bg-slate-100 text-slate-700'
-      : 'bg-slate-900 text-white';
+      ? 'bg-grey text-green'
+      : 'bg-green text-white';
 
   return (
     <span className={`inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-sm font-medium ${styles}`}>
       {children}
       {onRemove ? (
-        <button
+        <X
           type="button"
           onClick={onRemove}
-          className="rounded-full p-0.5 transition hover:bg-white/20"
+          className="rounded-full p-0.5 transition hover:bg-white/50"
           aria-label="Remove"
         >
-          ×
-        </button>
+        </X>
       ) : null}
     </span>
   );

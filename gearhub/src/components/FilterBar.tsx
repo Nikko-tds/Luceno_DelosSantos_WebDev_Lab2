@@ -16,7 +16,7 @@ export default function FilterBar() {
   const highestProductPrice = state.products.length > 0
     ? Math.max(...state.products.map((product) => product.price))
     : 500;
-  const sliderMaxPrice = Math.max(highestProductPrice, maxPrice, 20);
+  const sliderMaxPrice = Math.ceil(Math.max(highestProductPrice, maxPrice, 20));
   const selectedCategories = category ?? [];
   const availableCategories = CATEGORY_OPTIONS.filter(
     (cat) => !selectedCategories.includes(cat)
@@ -39,16 +39,17 @@ export default function FilterBar() {
   };
 
   return (
-    <div className="bg-white border border-slate-200 rounded-2xl p-4 sm:p-6 shadow-sm mb-8 space-y-4">
+    <div className="bg-white border border-green rounded-2xl p-4 sm:p-6 shadow-sm mb-8 space-y-4">
       
-      {/* Top row: Categories & Sort */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+      {/* Categories & Sort */}
+      <div className="flex flex-col lg:flex-row lg:justify-start items-start gap-4">
         
         {/* Category Dropdown + Selected Pills */}
         <div className="flex flex-col gap-3 lg:flex-1">
-          <div className="flex items-center gap-2 overflow-x-auto pb-2 lg:pb-0 scrollbar-none">
-            <span className="text-xs font-semibold uppercase tracking-wider text-slate-400 flex items-center gap-1 mr-2 shrink-0">
-              <SlidersHorizontal className="w-3.5 h-3.5" /> Category:
+
+          <div className="flex items-center gap-2 overflow-x-auto mb-1 lg:pb-0 scrollbar-none">
+            <span className="text-xs font-semibold uppercase tracking-wider text-black flex items-center gap-1 mr-2 shrink-0">
+              <SlidersHorizontal className="w-5 h-5" /> Category:
             </span>
             <Dropdown
               value=""
@@ -63,7 +64,7 @@ export default function FilterBar() {
 
           <div className="flex flex-wrap gap-2">
             {selectedCategories.length === 0 ? (
-              <span className="text-sm text-slate-500">Showing all categories</span>
+              <span className="text-sm text-green">Showing all categories</span>
             ) : (
               selectedCategories.map((cat) => (
                 <Pill key={cat} onRemove={() => removeCategory(cat)}>
@@ -72,12 +73,13 @@ export default function FilterBar() {
               ))
             )}
           </div>
+          
         </div>
 
         {/* Sort Options */}
-        <div className="flex items-center gap-2 shrink-0 self-start lg:self-auto">
-          <ArrowUpDown className="w-4 h-4 text-slate-400" />
-          <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">Sort By:</span>
+        <div className="flex items-center text-black gap-2 shrink-0 self-start lg:self-auto">
+          <ArrowUpDown className="w-5 h-5" />
+          <span className="text-xs font-semibold uppercase tracking-wider">Sort By:</span>
           <Dropdown
             value={sortBy}
             onChange={(e) =>
@@ -97,8 +99,8 @@ export default function FilterBar() {
 
       </div>
 
-      {/* Bottom row: Mobile Search (if small screen) & Price Range Slider */}
-      <div className="pt-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+      {/* Price Range Slider */}
+      <div className="pt-4 border-t border-black flex flex-col sm:flex-row items-center justify-between gap-4">
         
         {/* Mobile Search Input */}
         <div className="w-full sm:w-auto md:hidden">
@@ -118,8 +120,8 @@ export default function FilterBar() {
 
         {/* Max Price Slider */}
         <div className="w-full sm:w-72 flex items-center gap-3 ml-auto">
-          <div className="text-xs text-slate-500 font-medium shrink-0">
-            Max Price: <span className="font-bold text-slate-900">${maxPrice}</span>
+          <div className="text-xs text-green font-medium shrink-0">
+            Max Price: <span className="font-bold text-green">${maxPrice}</span>
           </div>
           <input
             type="range"
@@ -133,7 +135,7 @@ export default function FilterBar() {
                 payload: { maxPrice: Number(e.target.value) },
               })
             }
-            className="w-full accent-slate-900 cursor-pointer"
+            className="w-full accent-green cursor-pointer"
           />
         </div>
 
