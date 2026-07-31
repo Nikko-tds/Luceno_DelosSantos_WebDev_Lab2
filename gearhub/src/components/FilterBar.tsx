@@ -66,7 +66,7 @@ export default function FilterBar() {
               { label: 'Select a category', value: '' },
               ...CATEGORY_OPTIONS.map((cat) => ({ label: cat, value: cat })),
             ]}
-            className="min-w-56"
+            className="min-w-56 mr-1 mb-1"
           />
         </div>
         

@@ -13,6 +13,21 @@ interface ProductCardProps {
 export default function ProductCard({ product }: ProductCardProps) {
   const { state, dispatch } = useShop();
   const availableStock = product.inStock
+  const cartItem = state.cart.find((item) => item.id === product.id);
+
+  const handleAddToCart = () => {
+    if (cartItem) {
+      dispatch({
+        type: 'UPDATE_QUANTITY',
+        payload: { id: cartItem.id, quantity: cartItem.quantity + 1 },
+      })
+    } else {
+      dispatch({
+        type: 'ADD_TO_CART',
+        payload: product
+      });
+    }
+  };
 
   return (
     <div className="bg-white border border-green rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between group">
@@ -56,11 +71,11 @@ export default function ProductCard({ product }: ProductCardProps) {
 
         {/* Action Button */}
         <Button
-          onClick={() => dispatch({ type: 'ADD_TO_CART', payload: product })}
-          disabled={availableStock}
-          variant={availableStock ? 'ghost' : 'default'}
+          onClick={handleAddToCart}
+          disabled={!availableStock}
+          variant={availableStock ? 'default' : 'secondary'}
           className={`w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-sm font-medium ${
-            availableStock ? 'cursor-not-allowed' : 'shadow-sm'
+            !availableStock ? 'cursor-not-allowed' : 'shadow-sm'
           }`}
         >
           <Plus className="w-4 h-4" />

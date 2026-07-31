@@ -23,10 +23,10 @@ export default function Navbar() {
         
         {/* Brand Logo & Title */}
         <div className="flex items-center">
-          <div className=" text-green p-2 rounded-xl flex items-center justify-center">
-            <Cog className="w-10 h-10" />
+          <div className=" text-green rounded-xl flex items-center justify-center">
+            <Cog className="w-12 h-12" />
           </div>
-          <span className="font-bold text-xl tracking-tight text-green">
+          <span className="font-bold text-4xl tracking-tight text-green">
             Gear<span className="text-black">Hub</span>
           </span>
         </div>
