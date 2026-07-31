@@ -1,5 +1,6 @@
 'use client';
 
+import { MouseEvent } from 'react';
 import { Product } from '@/types';
 import { useShop } from '@/types/AppStateContext';
 import { Plus } from 'lucide-react';
@@ -8,29 +9,34 @@ import { Button } from './ui';
 
 interface ProductCardProps {
   product: Product;
+  onShowDetails?: () => void;
 }
 
-export default function ProductCard({ product }: ProductCardProps) {
+export default function ProductCard({ product, onShowDetails }: ProductCardProps) {
   const { state, dispatch } = useShop();
-  const availableStock = product.inStock
+  const availableStock = product.inStock;
   const cartItem = state.cart.find((item) => item.id === product.id);
 
-  const handleAddToCart = () => {
+  const handleAddToCart = (event: MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
     if (cartItem) {
       dispatch({
         type: 'UPDATE_QUANTITY',
         payload: { id: cartItem.id, quantity: cartItem.quantity + 1 },
-      })
+      });
     } else {
       dispatch({
         type: 'ADD_TO_CART',
-        payload: product
+        payload: product,
       });
     }
   };
 
   return (
-    <div className="bg-white border border-green rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between group">
+    <div
+      onClick={onShowDetails}
+      className="bg-white border border-green rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between group cursor-pointer"
+    >
       
       {/* Product Image & Badge Container */}
       <div className="relative h-36 overflow-hidden m-2">
@@ -61,7 +67,10 @@ export default function ProductCard({ product }: ProductCardProps) {
       {/* Product Content Details */}
       <div className="p-5 flex flex-col grow justify-between space-y-4">
         <div>
-          <h3 className="font-semibold text-black text-base line-clamp-1 hover:text-green transition-all cursor-pointer">
+          <h3
+            onClick={onShowDetails}
+            className="font-semibold text-black text-base line-clamp-1 hover:text-green transition-all cursor-pointer"
+          >
             {product.name}
           </h3>
           <div className="mt-2 text-xl font-bold text-black">

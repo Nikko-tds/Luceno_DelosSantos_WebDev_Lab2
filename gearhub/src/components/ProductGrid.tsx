@@ -4,17 +4,18 @@ import { useEffect, useMemo, useState } from 'react';
 import { useShop } from '@/types/AppStateContext';
 import ProductCard from './ProductCard';
 import ProductCarouselControls from './ProductCarouselControls';
+import ProductDetailModal from './ProductDetailModal';
 import productsData from '@/data/products.json';
 import { Product } from '@/types';
 import { PackageX } from 'lucide-react';
 
 const ITEMS_PER_PAGE = 10;
-const ITEMS_PER_ROW = 5;
 
 export default function ProductGrid() {
   const { state, dispatch } = useShop();
   const { products, filters } = state;
   const [currentPage, setCurrentPage] = useState(0);
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
   useEffect(() => {
     dispatch({ type: 'SET_PRODUCTS', payload: productsData as Product[] });
@@ -27,10 +28,8 @@ export default function ProductGrid() {
           .toLowerCase()
           .includes(filters.searchQuery.toLowerCase());
 
-        const selectedCategories = filters.category ?? [];
         const matchesCategory =
-          selectedCategories.length === 0 ||
-          selectedCategories.includes(product.category);
+          !filters.category || filters.category === product.category;
 
         const matchesPrice = product.price <= filters.maxPrice;
 
@@ -51,10 +50,6 @@ export default function ProductGrid() {
     safePage * ITEMS_PER_PAGE + ITEMS_PER_PAGE
   );
 
-  useEffect(() => {
-    setCurrentPage(0);
-  }, [filters.searchQuery, filters.category, filters.maxPrice, filters.sortBy]);
-
   return (
     <div>
       <div className="mb-6 flex items-center justify-between">
@@ -70,7 +65,11 @@ export default function ProductGrid() {
         <>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-5">
             {visibleProducts.map((product) => (
-              <ProductCard key={product.id} product={product} />
+              <ProductCard
+                key={product.id}
+                product={product}
+                onShowDetails={() => setSelectedProduct(product)}
+              />
             ))}
           </div>
 
@@ -79,13 +78,20 @@ export default function ProductGrid() {
             totalPages={totalPages}
             onPageChange={setCurrentPage}
           />
+
+          {selectedProduct && (
+            <ProductDetailModal
+              product={selectedProduct}
+              onClose={() => setSelectedProduct(null)}
+            />
+          )}
         </>
       ) : (
         <div className="flex flex-col items-center justify-center space-y-3 rounded-2xl border border-green bg-white p-12 text-center">
           <div className="rounded-full bg-green/10 p-4 text-black">
             <PackageX className="h-8 w-8" />
           </div>
-          <h3 className="text-base font-semibold text-Black">No gear found</h3>
+          <h3 className="text-base font-semibold text-black">No gear found</h3>
           <p className="max-w-sm text-sm text-green">
             Try adjusting your search query, price range, or category filters to find what you&apos;re looking for.
           </p>
