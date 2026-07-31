@@ -13,7 +13,7 @@ export default function Button({
   className = '',
   ...props
 }: ButtonProps) {
-  const baseStyles = 'inline-flex items-center justify-center rounded-lg font-medium transition-all';
+  const baseStyles = 'inline-flex items-center justify-center rounded-lg font-medium';
   const variants = {
     default: 'bg-black text-white hover:bg-green',
     secondary: 'bg-offwhite text-black hover:bg-white hover:border hover:border-green hover:text-green',
