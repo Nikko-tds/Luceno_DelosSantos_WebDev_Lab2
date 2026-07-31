@@ -24,11 +24,8 @@ function shopReducer(state: State, action: Action): State {
   switch (action.type) {
 
     case 'ADD_TO_CART': {
-      if (action.payload.inStock) {
-        return {
-          ...state,
-          cart: [...state.cart, { ...action.payload, quantity: 1 }],
-        };
+      if (!action.payload.inStock) {
+        return state;
       }
 
       const existingIndex = state.cart.findIndex(
