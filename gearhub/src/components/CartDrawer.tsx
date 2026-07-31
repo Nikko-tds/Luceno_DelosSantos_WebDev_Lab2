@@ -92,7 +92,6 @@ export default function CartDrawer() {
                               payload: { id: item.id, quantity: item.quantity + 1 },
                             })
                           }
-                          disabled={item.inStock}
                           className="p-1 hover:bg-green hover:text-white text-grey transition-colors disabled:cursor-not-allowed disabled:opacity-50"
                         >
                           <Plus className="w-3.5 h-3.5" />

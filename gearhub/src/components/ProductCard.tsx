@@ -13,6 +13,21 @@ interface ProductCardProps {
 export default function ProductCard({ product }: ProductCardProps) {
   const { state, dispatch } = useShop();
   const availableStock = product.inStock
+  const cartItem = state.cart.find((item) => item.id === product.id);
+
+  const handleAddToCart = () => {
+    if (cartItem) {
+      dispatch({
+        type: 'UPDATE_QUANTITY',
+        payload: { id: cartItem.id, quantity: cartItem.quantity + 1 },
+      })
+    } else {
+      dispatch({
+        type: 'ADD_TO_CART',
+        payload: product
+      });
+    }
+  };
 
   return (
     <div className="bg-white border border-green rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between group">
@@ -46,7 +61,7 @@ export default function ProductCard({ product }: ProductCardProps) {
       {/* Product Content Details */}
       <div className="p-5 flex flex-col grow justify-between space-y-4">
         <div>
-          <h3 className="font-semibold text-black text-base line-clamp-1 hover:text-green transition-colors cursor-pointer">
+          <h3 className="font-semibold text-black text-base line-clamp-1 hover:text-green transition-all cursor-pointer">
             {product.name}
           </h3>
           <div className="mt-2 text-xl font-bold text-black">
@@ -56,11 +71,11 @@ export default function ProductCard({ product }: ProductCardProps) {
 
         {/* Action Button */}
         <Button
-          onClick={() => dispatch({ type: 'ADD_TO_CART', payload: product })}
-          disabled={availableStock}
-          variant={availableStock ? 'ghost' : 'default'}
+          onClick={handleAddToCart}
+          disabled={!availableStock}
+          variant={availableStock ? 'default' : 'ghost'}
           className={`w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-sm font-medium ${
-            availableStock ? 'cursor-not-allowed' : 'shadow-sm'
+            !availableStock ? 'cursor-not-allowed' : 'shadow-sm'
           }`}
         >
           <Plus className="w-4 h-4" />

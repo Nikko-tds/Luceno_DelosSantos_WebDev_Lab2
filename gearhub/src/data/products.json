@@ -174,5 +174,69 @@
     "price": 199.99,
     "image": "https://images.unsplash.com/photo-1627407660893-fe01f60d44c4",
     "inStock": true
+  },
+  {
+    "id": "23",
+    "name": "Precision Wireless Gaming Mouse",
+    "category": "Mouse",
+    "price": 59.99,
+    "image": "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7",
+    "inStock": true
+  },
+  {
+    "id": "24",
+    "name": "Smart RGB Backlight LED Strip",
+    "category": "Lighting",
+    "price": 22.99,
+    "image": "https://images.unsplash.com/photo-1550745165-9bc0b252726f",
+    "inStock": true
+  },
+  {
+    "id": "25",
+    "name": "Wireless In-Ear Earbuds",
+    "category": "Audio",
+    "price": 89.99,
+    "image": "https://images.unsplash.com/photo-1590658268037-6bf12165a8df",
+    "inStock": false
+  },
+  {
+    "id": "26",
+    "name": "2-Bay NAS Storage Enclosure",
+    "category": "Storage",
+    "price": 179.99,
+    "image": "https://images.unsplash.com/photo-1597872200969-2b65d56bd16b",
+    "inStock": true
+  },
+  {
+    "id": "27",
+    "name": "15.6-inch Portable USB-C Monitor",
+    "category": "Monitors",
+    "price": 219.99,
+    "image": "https://images.unsplash.com/photo-1585792180666-f7347c490ee2",
+    "inStock": true
+  },
+  {
+    "id": "28",
+    "name": "Ergonomic Memory Foam Footrest",
+    "category": "Furniture",
+    "price": 32.99,
+    "image": "https://images.unsplash.com/photo-1580481072645-022f9a6d1270",
+    "inStock": true
+  },
+  {
+    "id": "29",
+    "name": "Custom Keycap Set (108 Keys)",
+    "category": "Keyboards",
+    "price": 44.99,
+    "image": "https://images.unsplash.com/photo-1618384887929-16ec33fab9ef",
+    "inStock": false
+  },
+  {
+    "id": "30",
+    "name": "Adjustable Microphone Boom Arm",
+    "category": "Audio",
+    "price": 39.50,
+    "image": "https://images.unsplash.com/photo-1590602847861-f357a9332bbc",
+    "inStock": true
   }
 ]
