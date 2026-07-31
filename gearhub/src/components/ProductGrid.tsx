@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
-import { useShop } from '@/context/ShopContext';
+import { useShop } from '@/types/AppStateContext';
 import ProductCard from './ProductCard';
 import ProductCarouselControls from './ProductCarouselControls';
 import productsData from '@/data/products.json';

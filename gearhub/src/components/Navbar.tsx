@@ -1,6 +1,6 @@
 'use client';
 
-import { useShop } from '@/context/ShopContext';
+import { useShop } from '@/types/AppStateContext';
 import { ShoppingCart, Search, Cog } from 'lucide-react';
 import { Button } from './ui';
 
@@ -8,6 +8,14 @@ export default function Navbar() {
   const { state, dispatch } = useShop();
 
   const totalItems = state.cart.reduce((sum, item) => sum + item.quantity, 0);
+
+  
+  const changeSearchQuery = (value: string) => {
+    dispatch({
+      type: 'SET_SEARCH_QUERY',
+      payload: value,
+    });
+  }
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-green bg-white backdrop-blur-md">
@@ -30,12 +38,7 @@ export default function Navbar() {
             type="text"
             placeholder="Search gear..."
             value={state.filters.searchQuery}
-            onChange={(e) =>
-              dispatch({
-                type: 'SET_FILTER',
-                payload: { searchQuery: e.target.value },
-              })
-            }
+            onChange={(e) => changeSearchQuery(e.target.value)}
             className="w-full pl-9 pr-4 py-1.5 text-sm text-green bg-offwhite border border-transparent rounded-full focus:outline-none focus:ring-2 focus:bg-white focus:border-green transition-all"
           />
         </div>

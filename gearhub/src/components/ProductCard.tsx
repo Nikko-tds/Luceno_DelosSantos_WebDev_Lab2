@@ -1,7 +1,7 @@
 'use client';
 
 import { Product } from '@/types';
-import { useShop } from '@/context/ShopContext';
+import { useShop } from '@/types/AppStateContext';
 import { Plus } from 'lucide-react';
 import Image from 'next/image';
 import { Button } from './ui';
@@ -12,9 +12,7 @@ interface ProductCardProps {
 
 export default function ProductCard({ product }: ProductCardProps) {
   const { state, dispatch } = useShop();
-  const cartItem = state.cart.find((item) => item.id === product.id);
-  const availableStock = product.inStock - (cartItem?.quantity ?? 0);
-  const isOutOfStock = availableStock <= 0;
+  const availableStock = product.inStock
 
   return (
     <div className="bg-white border border-green rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between group">
@@ -36,7 +34,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         </span>
 
         {/* Stock Status Indicator */}
-        {isOutOfStock && (
+        {availableStock && (
           <div className="absolute inset-0 bg-black/40 rounded-2xl backdrop-blur-[2px] flex items-center justify-center">
             <span className="bg-red-600 text-white text-xs font-bold px-3 py-1 shadow-md uppercase tracking-wider">
               Out of Stock
@@ -59,10 +57,10 @@ export default function ProductCard({ product }: ProductCardProps) {
         {/* Action Button */}
         <Button
           onClick={() => dispatch({ type: 'ADD_TO_CART', payload: product })}
-          disabled={isOutOfStock}
-          variant={isOutOfStock ? 'ghost' : 'default'}
+          disabled={availableStock}
+          variant={availableStock ? 'ghost' : 'default'}
           className={`w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-sm font-medium ${
-            isOutOfStock ? 'cursor-not-allowed' : 'shadow-sm'
+            availableStock ? 'cursor-not-allowed' : 'shadow-sm'
           }`}
         >
           <Plus className="w-4 h-4" />

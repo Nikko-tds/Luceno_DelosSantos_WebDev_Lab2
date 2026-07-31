@@ -5,7 +5,7 @@
     "category": "Keyboards",
     "price": 89.99,
     "image": "https://images.unsplash.com/photo-1632079003110-d694908500da",
-    "inStock": 5
+    "inStock": true
   },
   {
     "id": "2",
@@ -13,7 +13,7 @@
     "category": "Mouse",
     "price": 45.50,
     "image": "https://images.unsplash.com/photo-1739742473235-34a7bd9b8f87",
-    "inStock": 7
+    "inStock": true
   },
   {
     "id": "3",
@@ -21,7 +21,7 @@
     "category": "Audio",
     "price": 149.99,
     "image": "https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb",
-    "inStock": 8
+    "inStock": false
   },
   {
     "id": "4",
@@ -29,7 +29,7 @@
     "category": "Monitors",
     "price": 399.99,
     "image": "https://images.unsplash.com/photo-1666771410333-3457e9603dd4",
-    "inStock": 9
+    "inStock": true
   },
   {
     "id": "5",
@@ -37,7 +37,7 @@
     "category": "Accessories",
     "price": 29.99,
     "image": "https://images.unsplash.com/photo-1598978554679-6e24fe91f7cf",
-    "inStock": 6
+    "inStock": false
   },
   {
     "id": "6",
@@ -45,7 +45,7 @@
     "category": "Accessories",
     "price": 34.99,
     "image": "https://images.unsplash.com/photo-1760376789487-994070337c76",
-    "inStock": 4
+    "inStock": true
   },
   {
     "id": "7",
@@ -53,7 +53,7 @@
     "category": "Video",
     "price": 59.99,
     "image": "https://images.unsplash.com/photo-1623949556303-b0d17d198863",
-    "inStock": 12
+    "inStock": false
   },
   {
     "id": "8",
@@ -61,7 +61,7 @@
     "category": "Audio",
     "price": 79.99,
     "image": "https://images.unsplash.com/photo-1660631228116-b3643559f611",
-    "inStock": 15
+    "inStock": true
   },
   {
     "id": "9",
@@ -69,7 +69,7 @@
     "category": "Accessories",
     "price": 24.99,
     "image": "https://images.unsplash.com/photo-1663873148245-df991e1717ea",
-    "inStock": 20
+    "inStock": true
   },
   {
     "id": "10",
@@ -77,7 +77,7 @@
     "category": "Storage",
     "price": 129.99,
     "image": "https://images.unsplash.com/photo-1674303440321-707bb3047ec8",
-    "inStock": 3
+    "inStock": true
   },
   {
     "id": "11",
@@ -85,7 +85,7 @@
     "category": "Lighting",
     "price": 39.99,
     "image": "https://images.unsplash.com/photo-1643298909463-0ff66b23ee6a",
-    "inStock": 11
+    "inStock": true
   },
   {
     "id": "12",
@@ -93,7 +93,7 @@
     "category": "Furniture",
     "price": 199.99,
     "image": "https://images.unsplash.com/photo-1688578735352-9a6f2ac3b70a",
-    "inStock": 2
+    "inStock": false
   },
   {
     "id": "13",
@@ -101,7 +101,7 @@
     "category": "Accessories",
     "price": 19.99,
     "image": "https://images.unsplash.com/photo-1591290619618-904f6dd935e3",
-    "inStock": 25
+    "inStock": true
   },
   {
     "id": "14",
@@ -109,7 +109,7 @@
     "category": "Accessories",
     "price": 14.99,
     "image": "https://images.unsplash.com/photo-1572721546624-05bf65ad7679",
-    "inStock": 30
+    "inStock": true
   },
   {
     "id": "15",
@@ -117,7 +117,7 @@
     "category": "Accessories",
     "price": 29.99,
     "image": "https://images.unsplash.com/photo-1772683709338-82c262d55f8a",
-    "inStock": 50
+    "inStock": false
   },
   {
     "id": "16",
@@ -125,7 +125,7 @@
     "category": "Accessories",
     "price": 49.99,
     "image": "https://images.unsplash.com/photo-1783540108072-7e4e4007856e",
-    "inStock": 8
+    "inStock": true
   },
   {
     "id": "17",
@@ -133,7 +133,7 @@
     "category": "Keyboards",
     "price": 69.99,
     "image": "https://images.unsplash.com/photo-1595044426077-d36d9236d54a",
-    "inStock": 10
+    "inStock": true
   },
 {
     "id": "18",
@@ -141,7 +141,7 @@
     "category": "Lighting",
     "price": 25.99,
     "image": "https://images.unsplash.com/photo-1585047721202-60032f98f19f",
-    "inStock": 18
+    "inStock": false
   },
   {
     "id": "19",
@@ -149,7 +149,7 @@
     "category": "Video",
     "price": 149.99,
     "image": "https://images.unsplash.com/photo-1652105425282-72552e5f5c92",
-    "inStock": 5
+    "inStock": true
   },
   {
     "id": "20",
@@ -157,7 +157,7 @@
     "category": "Furniture",
     "price": 249.99,
     "image": "https://images.unsplash.com/photo-1622579522991-f2c1089b8fc2",
-    "inStock": 4
+    "inStock": true
   },
   {
     "id": "21",
@@ -165,7 +165,7 @@
     "category": "Accessories",
     "price": 19.99,
     "image": "https://images.unsplash.com/photo-1684196508688-4d1408bc5126",
-    "inStock": 22
+    "inStock": false
   },
   {
     "id": "22",
@@ -173,6 +173,6 @@
     "category": "Audio",
     "price": 199.99,
     "image": "https://images.unsplash.com/photo-1627407660893-fe01f60d44c4",
-    "inStock": 6
+    "inStock": true
   }
 ]

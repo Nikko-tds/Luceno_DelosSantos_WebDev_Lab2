@@ -1,14 +1,14 @@
 'use client';
 
-import { useShop } from '@/context/ShopContext';
+import { useShop } from '@/types/AppStateContext';
 import productsData from '@/data/products.json';
 import { SlidersHorizontal, ArrowUpDown } from 'lucide-react';
 import { SortOption } from '@/types';
 import { Button, Dropdown, Pill, TextField } from './ui';
 
 const CATEGORY_OPTIONS = Array.from(
-  new Set(productsData.map((product) => product.category).filter(Boolean))
-).sort((a, b) => a.localeCompare(b));
+    new Set(productsData.map((product) => product.category).filter(Boolean))
+  ).sort((a, b) => a.localeCompare(b));
 
 export default function FilterBar() {
   const { state, dispatch } = useShop();
@@ -17,26 +17,37 @@ export default function FilterBar() {
     ? Math.max(...state.products.map((product) => product.price))
     : 500;
   const sliderMaxPrice = Math.ceil(Math.max(highestProductPrice, maxPrice, 20));
-  const selectedCategories = category ?? [];
-  const availableCategories = CATEGORY_OPTIONS.filter(
-    (cat) => !selectedCategories.includes(cat)
-  );
 
-  const addCategory = (value: string) => {
-    if (!value || selectedCategories.includes(value)) return;
-
+  const changeCategory = (value: string) => {
+    if (value === 'All') {
+      value = '';
+    }
     dispatch({
-      type: 'SET_FILTER',
-      payload: { category: [...selectedCategories, value] },
+      type: 'SET_CATEGORY',
+      payload: value,
     });
   };
 
-  const removeCategory = (value: string) => {
+  const changeSort = (value: string) => {
     dispatch({
-      type: 'SET_FILTER',
-      payload: { category: selectedCategories.filter((cat) => cat !== value) },
+      type: 'SET_SORT',
+      payload: value,
     });
   };
+
+  const changeSearchQuery = (value: string) => {
+    dispatch({
+      type: 'SET_SEARCH_QUERY',
+      payload: value,
+    });
+  }
+
+  const changeMaxPrice = (value: number) => {
+    dispatch({
+      type: 'SET_MAX_PRICE',
+      payload: value,
+    });
+  }
 
   return (
     <div className="bg-white border border-green rounded-2xl p-4 sm:p-6 shadow-sm mb-8 space-y-4">
@@ -44,38 +55,22 @@ export default function FilterBar() {
       {/* Categories & Sort */}
       <div className="flex flex-col lg:flex-row lg:justify-start items-start gap-4">
         
-        {/* Category Dropdown + Selected Pills */}
-        <div className="flex flex-col gap-3 lg:flex-1">
-
-          <div className="flex items-center gap-2 overflow-x-auto mb-1 lg:pb-0 scrollbar-none">
-            <span className="text-xs font-semibold uppercase tracking-wider text-black flex items-center gap-1 mr-2 shrink-0">
-              <SlidersHorizontal className="w-5 h-5" /> Category:
-            </span>
-            <Dropdown
-              value=""
-              onChange={(e) => addCategory(e.target.value)}
-              options={[
-                { label: 'Select a category', value: '' },
-                ...availableCategories.map((cat) => ({ label: cat, value: cat })),
-              ]}
-              className="min-w-56"
-            />
-          </div>
-
-          <div className="flex flex-wrap gap-2">
-            {selectedCategories.length === 0 ? (
-              <span className="text-sm text-green">Showing all categories</span>
-            ) : (
-              selectedCategories.map((cat) => (
-                <Pill key={cat} onRemove={() => removeCategory(cat)}>
-                  {cat}
-                </Pill>
-              ))
-            )}
-          </div>
-          
+        {/* Category Dropdown */}
+        <div className="flex items-center gap-2 overflow-x-auto mb-1 lg:pb-0 scrollbar-none">
+          <span className="text-xs font-semibold uppercase tracking-wider text-black flex items-center gap-1 mr-2 shrink-0">
+            <SlidersHorizontal className="w-5 h-5" /> Category:
+          </span>
+          <Dropdown
+            value={category}
+            onChange={(e) => changeCategory(e.target.value)}
+            options={[
+              { label: 'Select a category', value: '' },
+              ...CATEGORY_OPTIONS.map((cat) => ({ label: cat, value: cat })),
+            ]}
+            className="min-w-56"
+          />
         </div>
-
+        
         {/* Sort Options */}
         <div className="flex items-center text-black gap-2 shrink-0 self-start lg:self-auto">
           <ArrowUpDown className="w-5 h-5" />
@@ -83,10 +78,7 @@ export default function FilterBar() {
           <Dropdown
             value={sortBy}
             onChange={(e) =>
-              dispatch({
-                type: 'SET_FILTER',
-                payload: { sortBy: e.target.value as SortOption },
-              })
+              changeSort(e.target.value)
             }
             options={[
               { label: 'Featured', value: 'default' },
@@ -108,12 +100,7 @@ export default function FilterBar() {
             type="text"
             placeholder="Search gear..."
             value={searchQuery}
-            onChange={(e) =>
-              dispatch({
-                type: 'SET_FILTER',
-                payload: { searchQuery: e.target.value },
-              })
-            }
+            onChange={(e) => changeSearchQuery(e.target.value)}
             className="w-full"
           />
         </div>
@@ -130,10 +117,7 @@ export default function FilterBar() {
             step="10"
             value={maxPrice}
             onChange={(e) =>
-              dispatch({
-                type: 'SET_FILTER',
-                payload: { maxPrice: Number(e.target.value) },
-              })
+              changeMaxPrice(Number(e.target.value))
             }
             className="w-full accent-green cursor-pointer"
           />

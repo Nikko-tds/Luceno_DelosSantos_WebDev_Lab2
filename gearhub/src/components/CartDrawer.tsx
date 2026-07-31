@@ -1,12 +1,12 @@
 'use client';
 
-import { useShop } from '@/context/ShopContext';
+import { useShop } from '@/types/AppStateContext';
 import { X, Trash2, Plus, Minus, ShoppingCart, ArrowRight } from 'lucide-react';
 import Image from 'next/image';
 
 export default function CartDrawer() {
   const { state, dispatch } = useShop();
-  const { cart, isCartOpen, cartWarning } = state;
+  const { cart, isCartOpen } = state;
 
   if (!isCartOpen) return null;
 
@@ -45,12 +45,6 @@ export default function CartDrawer() {
               <X className="w-5 h-5" />
             </button>
           </div>
-
-          {cartWarning && (
-            <div className="border-b border-amber-200 bg-amber-50 px-6 py-3">
-              <p className="text-sm font-medium text-amber-700">{cartWarning}</p>
-            </div>
-          )}
 
           <div className="flex-1 overflow-y-auto p-6 space-y-4">
             {cart.length > 0 ? (
@@ -98,7 +92,7 @@ export default function CartDrawer() {
                               payload: { id: item.id, quantity: item.quantity + 1 },
                             })
                           }
-                          disabled={item.quantity >= item.inStock}
+                          disabled={item.inStock}
                           className="p-1 hover:bg-green hover:text-white text-grey transition-colors disabled:cursor-not-allowed disabled:opacity-50"
                         >
                           <Plus className="w-3.5 h-3.5" />
