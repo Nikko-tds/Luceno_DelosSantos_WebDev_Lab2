@@ -8,7 +8,7 @@ const highestPrice = Math.max(...productsData.map((product) => product.price));
 
 const initialFilters: FilterState = {
   searchQuery: '',
-  category: 'All',
+  category: '',
   maxPrice: highestPrice,
   sortBy: 'default',
 };
@@ -18,40 +18,16 @@ const initialState: State = {
   cart: [],
   filters: initialFilters,
   isCartOpen: false,
-  cartWarning: null,
 };
 
-// Reducer function handling state transitions
 function shopReducer(state: State, action: Action): State {
   switch (action.type) {
-    case 'SET_PRODUCTS': {
-      const highestProductPrice = action.payload.length > 0
-        ? Math.max(...action.payload.map((product) => product.price))
-        : state.filters.maxPrice;
-
-      return {
-        ...state,
-        products: action.payload,
-        filters: {
-          ...state.filters,
-          maxPrice: Math.max(state.filters.maxPrice, highestProductPrice),
-        },
-        cartWarning: null,
-      };
-    }
-
-    case 'SET_FILTER':
-      return {
-        ...state,
-        filters: { ...state.filters, ...action.payload },
-        cartWarning: null,
-      };
 
     case 'ADD_TO_CART': {
-      if (action.payload.inStock <= 0) {
+      if (action.payload.inStock) {
         return {
           ...state,
-          cartWarning: `${action.payload.name} is out of stock.`,
+          cart: [...state.cart, { ...action.payload, quantity: 1 }],
         };
       }
 
@@ -61,25 +37,18 @@ function shopReducer(state: State, action: Action): State {
 
       if (existingIndex > -1) {
         const existingItem = state.cart[existingIndex];
-        if (existingItem.quantity >= action.payload.inStock) {
-          return {
-            ...state,
-            cartWarning: `Maximum stock reached for ${action.payload.name}.`,
-          };
-        }
 
         const updatedCart = [...state.cart];
         updatedCart[existingIndex] = {
           ...existingItem,
           quantity: existingItem.quantity + 1,
         };
-        return { ...state, cart: updatedCart, cartWarning: null };
+        return { ...state, cart: updatedCart };
       }
 
       return {
         ...state,
         cart: [...state.cart, { ...action.payload, quantity: 1 }],
-        cartWarning: null,
       };
     }
 
@@ -87,7 +56,6 @@ function shopReducer(state: State, action: Action): State {
       return {
         ...state,
         cart: state.cart.filter((item) => item.id !== action.payload),
-        cartWarning: null,
       };
 
     case 'UPDATE_QUANTITY': {
@@ -102,17 +70,6 @@ function shopReducer(state: State, action: Action): State {
         return {
           ...state,
           cart: state.cart.filter((item) => item.id !== id),
-          cartWarning: null,
-        };
-      }
-
-      if (quantity > currentItem.inStock) {
-        return {
-          ...state,
-          cart: state.cart.map((item) =>
-            item.id === id ? { ...item, quantity: currentItem.inStock } : item
-          ),
-          cartWarning: `Only ${currentItem.inStock} ${currentItem.inStock === 1 ? 'unit' : 'units'} of ${currentItem.name} available.`,
         };
       }
 
@@ -121,15 +78,65 @@ function shopReducer(state: State, action: Action): State {
         cart: state.cart.map((item) =>
           item.id === id ? { ...item, quantity } : item
         ),
-        cartWarning: null,
       };
     }
 
-    case 'TOGGLE_CART':
-      return { ...state, isCartOpen: !state.isCartOpen, cartWarning: null };
-
     case 'CLEAR_CART':
-      return { ...state, cart: [], isCartOpen: false, cartWarning: null };
+      return { ...state, cart: [], isCartOpen: false };
+    
+    case 'SET_SEARCH_QUERY':
+      return {
+        ...state,
+        filters: {
+          ...state.filters,
+          searchQuery: action.payload,
+        },
+      };
+    
+    case 'SET_CATEGORY':
+      return {
+        ...state,
+        filters: {
+          ...state.filters,
+          category: action.payload,
+        },
+      };
+    
+    case 'SET_SORT':
+      return {
+        ...state,
+        filters: {
+          ...state.filters,
+          sortBy: action.payload,
+        },
+      };
+
+    case 'TOGGLE_CART':
+      return { ...state, isCartOpen: !state.isCartOpen };
+    
+    case 'SET_PRODUCTS': {
+      const highestProductPrice = action.payload.length > 0
+        ? Math.max(...action.payload.map((product) => product.price))
+        : state.filters.maxPrice;
+
+      return {
+        ...state,
+        products: action.payload,
+        filters: {
+          ...state.filters,
+          maxPrice: Math.max(state.filters.maxPrice, highestProductPrice),
+        },
+      };
+    }
+
+    case 'SET_MAX_PRICE':
+      return {
+        ...state,
+        filters: {
+          ...state.filters,
+          maxPrice: action.payload,
+        },
+      };
 
     default:
       return state;

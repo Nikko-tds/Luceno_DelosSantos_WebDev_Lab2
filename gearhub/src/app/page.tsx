@@ -6,7 +6,7 @@ import CartDrawer from '@/components/CartDrawer';
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col selection:bg-blue-600 selection:text-white">
+    <div className="min-h-screen bg-slate-50 text-black flex flex-col selection:bg-green selection:text-white">
       <Navbar />
 
       <main className="grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
