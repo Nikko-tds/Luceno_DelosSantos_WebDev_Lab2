@@ -18,7 +18,7 @@ export default function ProductCard({ product }: ProductCardProps) {
     <div className="bg-white border border-green rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between group">
       
       {/* Product Image & Badge Container */}
-      <div className="relative h-48 overflow-hidden m-2">
+      <div className="relative h-36 overflow-hidden m-2">
         <Image
           src={product.image}
           alt={product.name}
@@ -34,9 +34,9 @@ export default function ProductCard({ product }: ProductCardProps) {
         </span>
 
         {/* Stock Status Indicator */}
-        {availableStock && (
+        {!availableStock && (
           <div className="absolute inset-0 bg-black/40 rounded-2xl backdrop-blur-[2px] flex items-center justify-center">
-            <span className="bg-red-600 text-white text-xs font-bold px-3 py-1 shadow-md uppercase tracking-wider">
+            <span className="bg-red-600 text-white text-xs font-bold rounded-2xl px-3 py-1 shadow-md uppercase tracking-wider">
               Out of Stock
             </span>
           </div>

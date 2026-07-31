@@ -3,8 +3,7 @@
 import { useShop } from '@/types/AppStateContext';
 import productsData from '@/data/products.json';
 import { SlidersHorizontal, ArrowUpDown } from 'lucide-react';
-import { SortOption } from '@/types';
-import { Button, Dropdown, Pill, TextField } from './ui';
+import { Dropdown, TextField } from './ui';
 
 const CATEGORY_OPTIONS = Array.from(
     new Set(productsData.map((product) => product.category).filter(Boolean))

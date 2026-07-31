@@ -11,8 +11,6 @@ export interface CartItem extends Product {
   quantity: number;
 }
 
-export type SortOption = 'default' | 'price-asc' | 'price-desc' | 'title';
-
 export interface FilterState {
   searchQuery: string;
   category: string;
