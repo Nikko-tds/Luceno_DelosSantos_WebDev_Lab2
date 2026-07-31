@@ -61,7 +61,7 @@ export default function ProductCard({ product }: ProductCardProps) {
       {/* Product Content Details */}
       <div className="p-5 flex flex-col grow justify-between space-y-4">
         <div>
-          <h3 className="font-semibold text-black text-base line-clamp-1 hover:text-green transition-colors cursor-pointer">
+          <h3 className="font-semibold text-black text-base line-clamp-1 hover:text-green transition-all cursor-pointer">
             {product.name}
           </h3>
           <div className="mt-2 text-xl font-bold text-black">
@@ -73,7 +73,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         <Button
           onClick={handleAddToCart}
           disabled={!availableStock}
-          variant={availableStock ? 'default' : 'secondary'}
+          variant={availableStock ? 'default' : 'ghost'}
           className={`w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-sm font-medium ${
             !availableStock ? 'cursor-not-allowed' : 'shadow-sm'
           }`}
